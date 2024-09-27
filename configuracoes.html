@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7e9;
+            color: #004d26;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        input, button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: 2px solid #007f40;
+        }
+
+        button {
+            background-color: #007f40;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #005f30;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Configurações</h1>
+
+        <!-- Campo para definir nova data inicial -->
+        <input type="date" id="startDateInput">
+        <button id="setStartDateButton">Definir Data Inicial</button>
+
+        <!-- Botão para reiniciar o recorde -->
+        <button id="resetRecordButton">Reiniciar Recorde</button>
+
+        <!-- Botão para resetar o contador -->
+        <button id="resetButton">Resetar Contador</button>
+        
+        <!-- Botão para voltar -->
+        <a href="index.html">
+            <button>Voltar ao Placar</button>
+        </a>
+    </div>
+
+    <script>
+        let startDate = localStorage.getItem('startDate');
+        let record = localStorage.getItem('record') || 0;
+
+        const setStartDateButton = document.getElementById('setStartDateButton');
+        const resetRecordButton = document.getElementById('resetRecordButton');
+        const resetButton = document.getElementById('resetButton');
+        const startDateInput = document.getElementById('startDateInput');
+
+        // Função para definir uma nova data de início
+        setStartDateButton.addEventListener('click', function() {
+            const selectedDate = new Date(startDateInput.value);
+            if (!isNaN(selectedDate)) {
+                startDate = selectedDate;
+                localStorage.setItem('startDate', startDate);
+                alert('Data inicial definida com sucesso!');
+            }
+        });
+
+        // Função para reiniciar o recorde
+        resetRecordButton.addEventListener('click', function() {
+            record = 0;
+            localStorage.setItem('record', record);
+            alert('Recorde reiniciado!');
+        });
+
+        // Função para resetar o contador
+        resetButton.addEventListener('click', function() {
+            startDate = new Date();
+            localStorage.setItem('startDate', startDate);
+            alert('Contador resetado!');
+        });
+    </script>
+</body>
+</html>

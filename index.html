@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Placar de Segurança</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7e9;
+            color: #004d26;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Estilos para o placar de segurança */
+        .placar {
+            background-color: #007f40;
+            color: white;
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .placar h2 {
+            margin: 0;
+        }
+
+        .texto-seguranca {
+            margin-top: 20px;
+            font-size: 1.2rem;
+        }
+
+        /* Estilos para a área das imagens */
+        .imagens {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .imagens div {
+            width: 150px;
+            height: 150px;
+            background-color: #ffffff;
+            border: 2px solid #007f40;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: #004d26;
+        }
+
+        /* Estilos para o rodapé */
+        .rodape {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #004d26;
+        }
+
+        /* Estilos para o quadrante de avisos */
+        .avisos {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 400px;
+            border: 2px solid #007f40;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .avisos h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.5rem;
+            color: #004d26;
+        }
+
+        /* Estilo da planilha */
+        .planilha {
+            background-color: #ffffff;
+            border: 2px solid #007f40;
+            padding: 10px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .planilha h4 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: #004d26;
+        }
+
+        .contador, .record {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        /* Botão para acessar configurações */
+        .config-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #007f40;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .config-button:hover {
+            background-color: #005f30;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Placar de segurança -->
+        <div class="placar">
+            <h2>Placar de Segurança</h2>
+            <img src="logo.png" alt="Símbolo" width="80" height="80">
+        </div>
+
+        <!-- Texto de segurança -->
+        <p class="texto-seguranca">Estamos trabalhando há <span class="contador" id="daysCounter">0</span> dias sem acidentes com afastamento. Nosso recorde é <span class="record" id="recordCounter">0</span> dias.</p>
+
+        <!-- Área das imagens -->
+        <div class="imagens">
+            <div>Imagem 1</div>
+            <div>Imagem 2</div>
+            <div>Imagem 3</div>
+            <div>Imagem 4</div>
+        </div>
+
+        <!-- Rodapé de mensagem -->
+        <p class="rodape">Trabalhe com segurança, sua vida é o nosso maior bem.</p>
+
+        <!-- Quadrante de avisos -->
+        <div class="avisos">
+            <h3>Avisos</h3>
+            <p>Espaço para avisos importantes.</p>
+        </div>
+
+        <!-- Planilha de acidentes -->
+        <div class="planilha">
+            <h4>Número total de acidentes</h4>
+            <p>Informação sobre acidentes aqui.</p>
+        </div>
+
+        <!-- Botão para acessar a página de configurações -->
+        <a href="configuracoes.html">
+            <button class="config-button">Acessar Configurações</button>
+        </a>
+    </div>
+
+    <script>
+        let startDate = localStorage.getItem('startDate');
+        let record = localStorage.getItem('record') || 0;
+
+        const daysCounter = document.getElementById('daysCounter');
+        const recordCounter = document.getElementById('recordCounter');
+
+        // Função que atualiza o contador de dias
+        function updateDaysCounter() {
+            const now = new Date();
+            const elapsedDays = Math.floor((now - new Date(startDate)) / (1000 * 60 * 60 * 24));
+            daysCounter.textContent = elapsedDays;
+        }
+
+        // Inicialização
+        if (!startDate) {
+            startDate = new Date();
+            localStorage.setItem('startDate', startDate);
+        }
+
+        recordCounter.textContent = record;
+
+        // Atualiza o contador a cada segundo
+        setInterval(updateDaysCounter, 1000);
+    </script>
+</body>
+</html>
